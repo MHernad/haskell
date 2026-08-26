@@ -19,8 +19,14 @@ k n = g(f(n))
 --    asegura : { res >= n1 y >= n2 y >= n3 }
 --    }
 
+max' :: Integer -> Integer -> Integer
+max' n1 n2
+    | n1 > n2 = n1
+    | n1 == n2 = n1
+    | otherwise = n2
+
 maximo3 :: Integer -> Integer -> Integer -> Integer 
-maximo3 n1 n2 n3 = max (max n1 n2) n3
+maximo3 n1 n2 n3 = max' (max' n1 n2) n3
 
 -- problema sumaDistintos (n1, n2, n3: Z) : Z {
 --    requiere: { True }
@@ -46,3 +52,6 @@ sumaDistintos n1 n2 n3
 
 digitoUnidades :: Integer -> Integer
 digitoUnidades x = mod x 10
+
+digitoDecenas :: Integer -> Integer
+digitoDecenas x = mod x 100
