@@ -47,38 +47,40 @@ maximo3 n1 n2 n3 = max' (max' n1 n2) n3
 
 -- d
 -- sin pattern matching
-algunoEsCero :: Integer -> Integer -> Bool
+algunoEsCero :: Float -> Float -> Bool
 algunoEsCero n1 n2
     | n1 == 0 = True
     | n2 == 0 = True
     | otherwise = False
 
 -- con pattern matching
-algunoEsCero' :: Integer -> Integer -> Bool
+algunoEsCero' :: Float -> Float -> Bool
 algunoEsCero' 0 n2 = True
 algunoEsCero' n1 0 = True
 algunoEsCero' n1 n2 = False
 
---e
+-- e
 -- sin pattern matching
-ambosSonCero :: Integer -> Integer -> Bool
+ambosSonCero :: Float -> Float -> Bool
 ambosSonCero n1 n2
     | n1 == 0 && n2 == 0 = True
     | otherwise = False
 
 -- con pattern matching
-ambosSonCero' :: Integer -> Integer -> Bool
+ambosSonCero' :: Float -> Float -> Bool
 ambosSonCero' 0 0 = True
 ambosSonCero' n1 n2 = False
 
--- problema sumaDistintos (n1, n2, n3: Z) : Z {
---    requiere: { True }
---    asegura:  {( (x != y) && (x != z) && (y != z) ) -> res = x+y+z}
---    asegura:  {( (x != y) && (x != z) && (y == z) ) -> res = x}
---    asegura:  {( (x != y) && (x == z) && (y != z) ) -> res = y}
---    asegura:  {( (x == y) && (x != z) && (y != z) ) -> res = z}
---    asegura:  {( (x == y) && (x == z) && (y == z) ) -> res = 0}
---    }
+-- f
+
+mismoIntervalo :: Float -> Float -> Bool
+mismoIntervalo n1 n2
+    | n1 <= 3 && n2 <= 3 = True
+    | n1 > 7 && n2 > 7 = True
+    | 3 < n1 && n1 <= 7 && 3 < n2 && n2 <= 7 = True
+    | otherwise = False
+
+-- g
 
 sumaDistintos :: Integer -> Integer -> Integer -> Integer
 sumaDistintos n1 n2 n3
@@ -88,13 +90,21 @@ sumaDistintos n1 n2 n3
     | n1 == n3 && n2/= n3 = n2
     | otherwise = n1+n2+n3
 
--- digitoUnidades (x: Z) : Z {
---  req: {True}
---  asegura: {Ultimo digito de X}
---}
+-- h
+
+esMultiploDe :: Integer -> Integer -> Bool
+esMultiploDe n1 n2
+    | mod n1 n2 == 0 = True
+    | otherwise = False
+
+-- i
 
 digitoUnidades :: Integer -> Integer
 digitoUnidades x = mod x 10
 
+-- j
+
 digitoDecenas :: Integer -> Integer
-digitoDecenas x = mod x 100
+digitoDecenas x = div (mod x 100)  10
+
+-- 3
