@@ -13,15 +13,21 @@ g 16 = 4
 g 131 = 1
 -- c)
 h :: Integer -> Integer
-h n = f(g n)
+h n = f (g n)
 
 k :: Integer -> Integer
-k n = g(f n)
+k n = g (f n)
 
--- problema maximo3 (n1, n2, n3: Z) : Z {
---    requiere : { True }
---    asegura : { res >= n1 y >= n2 y >= n3 }
---    }
+-- 2
+
+-- a
+
+absoluto :: Integer -> Integer
+absoluto n
+    | n < 0 = (-1)*n
+    | otherwise = n
+
+-- b
 
 max' :: Integer -> Integer -> Integer
 max' n1 n2
@@ -29,8 +35,41 @@ max' n1 n2
     | n1 == n2 = n1
     | otherwise = n2
 
-maximo3 :: Integer -> Integer -> Integer -> Integer 
+-- b
+
+maximoAbsoluto :: Integer -> Integer -> Integer
+maximoAbsoluto n1 n2 = max' (absoluto n1) (absoluto n2)
+
+-- c
+
+maximo3 :: Integer -> Integer -> Integer -> Integer
 maximo3 n1 n2 n3 = max' (max' n1 n2) n3
+
+-- d
+-- sin pattern matching
+algunoEsCero :: Integer -> Integer -> Bool
+algunoEsCero n1 n2
+    | n1 == 0 = True
+    | n2 == 0 = True
+    | otherwise = False
+
+-- con pattern matching
+algunoEsCero' :: Integer -> Integer -> Bool
+algunoEsCero' 0 n2 = True
+algunoEsCero' n1 0 = True
+algunoEsCero' n1 n2 = False
+
+--e
+-- sin pattern matching
+ambosSonCero :: Integer -> Integer -> Bool
+ambosSonCero n1 n2
+    | n1 == 0 && n2 == 0 = True
+    | otherwise = False
+
+-- con pattern matching
+ambosSonCero' :: Integer -> Integer -> Bool
+ambosSonCero' 0 0 = True
+ambosSonCero' n1 n2 = False
 
 -- problema sumaDistintos (n1, n2, n3: Z) : Z {
 --    requiere: { True }
