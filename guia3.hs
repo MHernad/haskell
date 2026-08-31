@@ -110,9 +110,7 @@ digitoDecenas x = div (mod x 100)  10
 -- 3
 
 estanRelacionados :: Integer -> Integer -> Bool
-estanRelacionados n1 n2
-    | mod n1 n2 /= 0 = False
-    | otherwise = True
+estanRelacionados n1 n2 = mod n1 n2 == 0
 
 -- Por qué? La relación esta formada por a^2 + a*b*k = 0 con a, b y k /= 0
 -- Si intento despejar k => a^2 = -a*b*k => a^2/a = -b*k => a = -b*k => a/b = -k
