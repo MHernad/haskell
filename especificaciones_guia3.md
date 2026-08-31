@@ -1,3 +1,15 @@
+Ejemplo de especificación
+
+problema nombre (d : T) : T {
+
+    requiere : {  }
+    
+    asegura : { }
+    
+}
+
+Ejercicio 2
+
 problema absoluto (n: Z) : Z {
 
     requiere : { True }
@@ -69,7 +81,7 @@ problema esMultiploDe (n1, n2 : R) : Bool {
 
     requiere : { True }
     
-    asegura : { n1 mod 0 (n2) -> True }
+    asegura : { n1 ≡ 0 (n2) -> True }
     
 }
 
@@ -89,11 +101,34 @@ problema digitoDecenas (x: Z) : Z {
 
 }
 
+problema productoInterno ((x1, y1), (x2, y2) : R) : R {
 
-problema nombre (d : T) : T {
-
-    requiere : {  }
+    requiere : { True }
     
-    asegura : { }
+    asegura : { res = x1*x2 + y1*y2 }
+    
+}
+
+problema esParMenor ((x1, y1), (x2, y2) : R) : R {
+
+    requiere : { True }
+    
+    asegura : { (x1<x2 && y1<y2) -> res }
+    
+}
+
+problema distancia ((x1, y1), (x2, y2) : R) : R {
+
+    requiere : { True }
+    
+    asegura : { res = sqrt((x2-x1)^2 + (y2-y1)^2) }
+    
+}
+
+problema sumaTerna ((x, y, z): R) : R {
+
+    requiere : { True }
+    
+    asegura : { res = x+y+z }
     
 }

@@ -108,3 +108,33 @@ digitoDecenas :: Integer -> Integer
 digitoDecenas x = div (mod x 100)  10
 
 -- 3
+
+estanRelacionados :: Integer -> Integer -> Bool
+estanRelacionados n1 n2
+    | mod n1 n2 /= 0 = False
+    | otherwise = True
+
+-- Por qué? La relación esta formada por a^2 + a*b*k = 0 con a, b y k /= 0
+-- Si intento despejar k => a^2 = -a*b*k => a^2/a = -b*k => a = -b*k => a/b = -k
+-- Como k tiene que ser un valor entero me baso en la congruencia dada como a ≡ 0 (b)
+
+-- 4
+-- a
+
+productoInterno :: (Integer, Integer) -> (Integer, Integer) -> Integer
+productoInterno (x1, y1) (x2, y2) = x1 * x2 + y1 * y2
+
+-- b
+
+esParMenor :: (Integer, Integer) -> (Integer, Integer) -> Bool
+esParMenor (x1, y1) (x2, y2) = x1 < x2 && y1 < y2
+
+-- c
+
+distancia :: (Float, Float) -> (Float, Float) -> Float
+distancia (x1, y1) (x2, y2) = sqrt((x2-x1)^2 + (y2-y1)^2 )
+
+-- d
+
+sumaTerna :: (Integer, Integer, Integer) -> Integer
+sumaTerna (x,y,z) = x+y+z
