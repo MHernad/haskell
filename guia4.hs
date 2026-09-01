@@ -58,3 +58,21 @@ cantDigitos n
 
 iesimoDigito :: Integer -> Integer -> Integer
 iesimoDigito n i = mod (div n (10^(cantDigitos(n)-i))) 10
+
+-- 8
+
+sumaDigitos :: Integer -> Integer
+sumaDigitos n
+    | div n 10 > 0 = mod n 10 + sumaDigitos (div n 10)
+    | otherwise = n
+
+-- 9
+
+esCapicua :: Integer -> Bool
+esCapicua n
+    | i == 0 = True
+    | i == 1 = True
+    | iesimoDigito n i == iesimoDigito n 1 = esCapicua numeroSinExtremos
+    | otherwise = False
+    where numeroSinExtremos = mod (div n 10) (10^((cantDigitos n )-2))
+          i = cantDigitos n

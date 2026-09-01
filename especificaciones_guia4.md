@@ -16,6 +16,16 @@ problema sumaImpares (x : N) : N {
 
     requiere : { True }
     
-    asegura : { Suma los numeros impares hasta x }
+    asegura : { Suma los números impares hasta x }
+    
+}
+
+Ejercicio 8
+
+problema sumaDigitos (x : N) : N {
+
+    requiere : { True }
+    
+    asegura : { Suma los digitos de un número natural }
     
 }
