@@ -9,8 +9,10 @@ fibonacci n = fibonacci (n-1) + fibonacci (n-2)
 
 parteEntera :: Float -> Integer
 parteEntera n
-    | n < 1 = 0
-    | otherwise = 1 + parteEntera (n-1)
+    | n < 1 && n > 0 = 0
+    | n > -1 && n < 0 = -1
+    | n >= -1 = 1 + parteEntera (n-1)
+    | otherwise = -1 + parteEntera(n+1)
 
 -- 3
 
@@ -23,11 +25,6 @@ esDivisible x y
     | otherwise = True
 
 -- 4
-
-esImpar :: Integer -> Bool -- por si hace falta
-esImpar n
-    | n `mod` 2 == 0 = False
-    | not (n `mod` 2 == 0) = True 
 
 sumaImpares :: Integer -> Integer
 sumaImpares 1 = 1
