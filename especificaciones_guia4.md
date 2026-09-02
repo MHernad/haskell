@@ -29,3 +29,37 @@ problema sumaDigitos (x : N) : N {
     asegura : { Suma los digitos de un número natural }
     
 }
+
+Ejercicio 10
+
+problema f1 (n : N) : N {
+
+    requiere : { n >= 0 }
+    
+    asegura : { La suma de 2 elevado a todos los numeros hasta n }
+    
+}
+
+problema f2 (n : N, q : R) : R {
+
+    requiere : { n > 0 }
+    
+    asegura : { La suma de q elevado a todos los numeros hasta n }
+    
+}
+
+problema f3 (n : N, q : R) : R {
+
+    requiere : { n > 0 }
+    
+    asegura : { La suma de q elevado a todos los numeros hasta el doble de n }
+    
+}
+
+problema f4 (n : N, q : R) : R {
+
+    requiere : { n > 0 }
+    
+    asegura : { La suma de q elevado a todos los numeros desde n hasta su doble }
+    
+}
