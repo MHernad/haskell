@@ -74,3 +74,32 @@ esCapicua n
     | otherwise = False
     where numeroSinExtremos = mod (div n 10) (10^((cantDigitos n )-2))
           i = cantDigitos n
+
+-- 10
+
+-- a
+
+f1 :: Integer -> Integer
+f1 0 = 1
+f1 n = 2^n + f1 (n-1)
+
+-- b
+
+f2 :: Integer -> Float -> Float
+f2 1 q = q
+f2 n 0 = 0
+f2 n q = q^n + f2 (n-1) q
+
+-- c
+
+f3 :: Integer -> Float -> Float
+f3 n q = f2 (2*n) q
+
+-- d
+
+f4 :: Integer -> Float -> Float
+f4 n q = f4Aux n (2*n) q
+
+f4Aux :: Integer -> Integer -> Float -> Float
+f4Aux n m q | n == m = q^n
+            | otherwise = q^n + f4Aux (n+1) m q 
