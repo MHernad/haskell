@@ -128,3 +128,11 @@ sucesionRaizDe2 n = 2 + 1 / sucesionRaizDe2 (n-1)
 
 -- 13
 
+sumatoria :: Integer -> Integer -> Integer
+sumatoria 0 m = 0
+sumatoria n m = sumatoriaAux n m + sumatoria (n-1) m
+
+sumatoriaAux :: Integer -> Integer -> Integer
+sumatoriaAux 1 j = j
+sumatoriaAux i 1 = i
+sumatoriaAux i j = i^j + sumatoriaAux i (j-1)
