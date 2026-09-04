@@ -63,3 +63,13 @@ problema f4 (n : N, q : R) : R {
     asegura : { La suma de q elevado a todos los numeros desde n hasta su doble }
     
 }
+
+Ejercicio 11
+
+problema eAprox (n : N) : R {
+
+    requiere : { n >= 0 }
+    
+    asegura : { La suma de 1 sobre el factorial todos los numeros hasta n }
+    
+}

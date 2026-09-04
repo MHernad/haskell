@@ -55,7 +55,7 @@ cantDigitos n
     | otherwise = 1 + cantDigitos (div n 10)
 
 iesimoDigito :: Integer -> Integer -> Integer
-iesimoDigito n i = mod (div n (10^(cantDigitos(n)-i))) 10
+iesimoDigito n i = mod (div n (10^(cantDigitos n-i))) 10
 
 -- 8
 
@@ -72,7 +72,7 @@ esCapicua n
     | i == 1 = True
     | iesimoDigito n i == iesimoDigito n 1 = esCapicua numeroSinExtremos
     | otherwise = False
-    where numeroSinExtremos = mod (div n 10) (10^((cantDigitos n )-2))
+    where numeroSinExtremos = mod (div n 10) (10^(cantDigitos n-2))
           i = cantDigitos n
 
 -- 10
@@ -93,13 +93,38 @@ f2 n q = q^n + f2 (n-1) q
 -- c
 
 f3 :: Integer -> Float -> Float
-f3 n q = f2 (2*n) q
+f3 n = f2 (2*n)
 
 -- d
 
 f4 :: Integer -> Float -> Float
-f4 n q = f4Aux n (2*n) q
+f4 n = f4Aux n (2*n)
 
 f4Aux :: Integer -> Integer -> Float -> Float
 f4Aux n m q | n == m = q^n
             | otherwise = q^n + f4Aux (n+1) m q 
+
+-- 11
+
+eAprox :: Integer -> Float
+eAprox 0 = 1
+eAprox n = (1 / eAproxAux n) + eAprox (n-1)
+
+eAproxAux :: Integer -> Float
+eAproxAux 0 = 1
+eAproxAux n = fromIntegral n * eAproxAux(n-1)
+
+const e = eAprox 10
+
+-- 12
+
+raizDe2Aprox :: Integer -> Float
+raizDe2Aprox 1 = 1
+raizDe2Aprox n = 2 + (1 / sucesionRaizDe2 (n-1)) - 1
+
+sucesionRaizDe2 :: Integer -> Float
+sucesionRaizDe2 1 = 2 + 1 / 2
+sucesionRaizDe2 n = 2 + 1 / sucesionRaizDe2 (n-1)
+
+-- 13
+
