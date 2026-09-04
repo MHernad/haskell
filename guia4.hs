@@ -136,3 +136,12 @@ sumatoriaAux :: Integer -> Integer -> Integer
 sumatoriaAux 1 j = j
 sumatoriaAux i 1 = i
 sumatoriaAux i j = i^j + sumatoriaAux i (j-1)
+
+-- 14
+
+sumaPotencias :: Integer -> Integer -> Integer -> Integer
+sumaPotencias q 0 m = 0
+sumaPotencias q n 0 = 0
+sumaPotencias q n m = sumatoriaAux q n * sumatoriaAux q m + sumaPotencias q (n-1) (m-1)
+
+-- No esta terminado
