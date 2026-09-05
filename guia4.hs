@@ -87,13 +87,13 @@ f1 n = 2^n + f1 (n-1)
 
 f2 :: Integer -> Float -> Float
 f2 1 q = q
-f2 n 0 = 0
 f2 n q = q^n + f2 (n-1) q
 
 -- c
 
 f3 :: Integer -> Float -> Float
-f3 n = f2 (2*n)
+f3 0 q = 0
+f3 n q = f2 (2*n) q
 
 -- d
 
@@ -153,3 +153,37 @@ sumaRacionales n m = sumatoriaAux' n m + sumaRacionales (n-1) m
 sumatoriaAux' :: Integer -> Integer -> Float
 sumatoriaAux' i 1 = fromIntegral i
 sumatoriaAux' i j = fromIntegral i / fromIntegral j + sumatoriaAux' i (j-1)
+
+-- 16
+
+-- a 
+
+menorDivisor :: Integer -> Integer
+menorDivisor n = buscaDivisor n 2
+
+buscaDivisor :: Integer -> Integer -> Integer
+buscaDivisor n m 
+    | esDivisible n m = m
+    | otherwise = buscaDivisor n (m+1)
+
+-- b
+
+esPrimo :: Integer -> Bool
+esPrimo 1 = False
+esPrimo n = menorDivisor n == n
+
+-- c
+
+sonCoprimos :: Integer -> Integer -> Bool
+sonCoprimos n m = not (esDivisible n (menorDivisor m) || esDivisible m (menorDivisor n))
+
+-- d
+
+nEsimoPrimo :: Integer -> Integer
+nEsimoPrimo n = buscarPrimos n 0 0
+
+buscarPrimos :: Integer -> Integer -> Integer -> Integer
+buscarPrimos lim p n
+    | n < lim && esPrimo p = buscarPrimos lim (p+1) (n+1)
+    | n < lim && not (esPrimo p) = buscarPrimos lim (p+1) n
+    | n == lim = p-1
