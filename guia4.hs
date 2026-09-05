@@ -12,7 +12,7 @@ parteEntera n
     | n < 1 && n > 0 = 0
     | n > -1 && n < 0 = -1
     | n >= -1 = 1 + parteEntera (n-1)
-    | otherwise = -1 + parteEntera(n+1)
+    | otherwise = -1 + parteEntera (n+1)
 
 -- 3
 
@@ -28,21 +28,21 @@ esDivisible x y
 
 sumaImpares :: Integer -> Integer
 sumaImpares 1 = 1
-sumaImpares n = 2*n-1 + sumaImpares(n-1)
+sumaImpares n = 2*n-1 + sumaImpares (n-1)
 
 -- 5
 
 medioFact :: Integer -> Integer
 medioFact 0 = 1
 medioFact 1 = 1
-medioFact n = n * medioFact(n-2)
+medioFact n = n * medioFact (n-2)
 
 -- 6
 
 todosDigitosIguales :: Integer -> Bool
 todosDigitosIguales n
     | n <= 9 = True
-    | mod n 10 == mod (div n 10) 10 = todosDigitosIguales (div n 10) 
+    | mod n 10 == mod (div n 10) 10 = todosDigitosIguales (div n 10)
     -- si pensamos el número como una lista [n..m] estoy verificando si m = m-1
     | otherwise = False
 
@@ -102,7 +102,7 @@ f4 n = f4Aux n (2*n)
 
 f4Aux :: Integer -> Integer -> Float -> Float
 f4Aux n m q | n == m = q^n
-            | otherwise = q^n + f4Aux (n+1) m q 
+            | otherwise = q^n + f4Aux (n+1) m q
 
 -- 11
 
@@ -112,7 +112,7 @@ eAprox n = (1 / eAproxAux n) + eAprox (n-1)
 
 eAproxAux :: Integer -> Float
 eAproxAux 0 = 1
-eAproxAux n = fromIntegral n * eAproxAux(n-1)
+eAproxAux n = fromIntegral n * eAproxAux (n-1)
 
 const e = eAprox 10
 
@@ -142,6 +142,14 @@ sumatoriaAux i j = i^j + sumatoriaAux i (j-1)
 sumaPotencias :: Integer -> Integer -> Integer -> Integer
 sumaPotencias q 0 m = 0
 sumaPotencias q n 0 = 0
-sumaPotencias q n m = sumatoriaAux q n * sumatoriaAux q m + sumaPotencias q (n-1) (m-1)
+sumaPotencias q n m = sumatoriaAux q n * sumatoriaAux q m
 
--- No esta terminado
+-- 15
+
+sumaRacionales :: Integer -> Integer -> Float
+sumaRacionales 0 m = 0
+sumaRacionales n m = sumatoriaAux' n m + sumaRacionales (n-1) m
+
+sumatoriaAux' :: Integer -> Integer -> Float
+sumatoriaAux' i 1 = fromIntegral i
+sumatoriaAux' i j = fromIntegral i / fromIntegral j + sumatoriaAux' i (j-1)
