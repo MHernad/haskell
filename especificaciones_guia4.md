@@ -80,6 +80,26 @@ problema raizDe2Aprox (n : N) : R {
 
     requiere : { n > 0 }
 
-    asegura : { La aproximación de $\sqrt{2}$ dada por $a_{n+1}$ - 1}
+    asegura : { La aproximación de raíz de 2 dada por a(n+1) - 1 siendo a la sucesion dada por a1 = 2, a(n+1) = 2 + (1 / a(n-1)) } 
+
+}
+
+Ejercicio 13
+
+problema dobleSumatoria (n, q : N) : R {
+
+    requiere : { n, q > 0 }
+    
+    asegura : { La suma de la suma de todos los i^j para cada j para cada i }
+    
+}
+
+Ejercicio 14
+
+problema sumaPotencias (q, n, m : N) : N {
+
+    requiere : { n, m > 0 }
+
+    asegura : { La suma de todos los posibles q^(a+b) para todo 1 =< a <= n y 1 =< b <= m }
 
 }
