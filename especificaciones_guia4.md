@@ -73,3 +73,13 @@ problema eAprox (n : N) : R {
     asegura : { La suma de 1 sobre el factorial todos los numeros hasta n }
     
 }
+
+Ejercicio 12
+
+problema raizDe2Aprox (n : N) : R {
+
+    requiere : { n > 0 }
+
+    asegura : { La aproximación de \sqrt{2} dada por $a_{n+1}$ - 1}
+
+}
