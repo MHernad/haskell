@@ -80,6 +80,6 @@ problema raizDe2Aprox (n : N) : R {
 
     requiere : { n > 0 }
 
-    asegura : { La aproximación de \sqrt{2} dada por $a_{n+1}$ - 1}
+    asegura : { La aproximación de $\sqrt{2}$ dada por $a_{n+1}$ - 1}
 
 }
