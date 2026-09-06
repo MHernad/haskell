@@ -1,8 +1,10 @@
+import GHC.IO.Encoding.Failure (CodingFailureMode(TransliterateCodingFailure))
 -- 1
 
 fibonacci :: Integer -> Integer
 fibonacci 0 = 1
 fibonacci 1 = 1
+fibonacci 2 = 1
 fibonacci n = fibonacci (n-1) + fibonacci (n-2)
 
 -- 2
@@ -187,3 +189,20 @@ buscarPrimos lim p n
     | n < lim && esPrimo p = buscarPrimos lim (p+1) (n+1)
     | n < lim && not (esPrimo p) = buscarPrimos lim (p+1) n
     | n == lim = p-1
+
+-- 17
+
+esFibonacci :: Integer -> Bool
+esFibonacci 0 = False
+esFibonacci 2 = True
+esFibonacci 3 = True
+esFibonacci n = esFibonacci' n n
+
+esFibonacci' :: Integer -> Integer -> Bool
+esFibonacci' n m
+    | n > fibonacci m = False
+    | n == fibonacci m = True
+    | otherwise = esFibonacci' n (m-1)
+
+-- 18
+
