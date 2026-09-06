@@ -164,7 +164,7 @@ menorDivisor :: Integer -> Integer
 menorDivisor n = buscaDivisor n 2
 
 buscaDivisor :: Integer -> Integer -> Integer
-buscaDivisor n m 
+buscaDivisor n m
     | esDivisible n m = m
     | otherwise = buscaDivisor n (m+1)
 
@@ -177,7 +177,7 @@ esPrimo n = menorDivisor n == n
 -- c
 
 sonCoprimos :: Integer -> Integer -> Bool
-sonCoprimos n m = not (esDivisible n (menorDivisor m) || esDivisible m (menorDivisor n))
+sonCoprimos n m = not (esDivisible n (menorDivisor m) || esDivisible m (menorDivisor n)) --revisar
 
 -- d
 
@@ -206,3 +206,47 @@ esFibonacci' n m
 
 -- 18
 
+mayorDigitoPar :: Integer -> Integer
+mayorDigitoPar n = mayorDigito n (-1)
+
+
+mayorDigito :: Integer -> Integer -> Integer
+mayorDigito n max
+    | n == 0 = max
+    | even n && mod n 10 > max = mayorDigito (div n 10) (mod n 10)
+    | otherwise = mayorDigito (div n 10) max
+
+-- 19
+
+esSumaInicialDePrimos :: Integer -> Bool
+esSumaInicialDePrimos 1 = False
+esSumaInicialDePrimos n = sumaDePrimos n 3 2
+
+sumaDePrimos :: Integer -> Integer -> Integer -> Bool
+sumaDePrimos n suma cantP
+    | n == suma = True
+    | n < suma = False
+    | otherwise = sumaDePrimos n (suma + nEsimoPrimo (cantP + 1)) (cantP + 1)
+
+-- 21
+
+
+pitagoras :: Integer -> Integer -> Integer -> Integer
+pitagoras x y h
+    | x > 0 && y > 0 = pitagorasCadaX x y h + pitagorasCadaY x (y-1) h + pitagoras (x-1) (y-1) h
+    | x == 0 && y > 0 = pitagorasCadaY x y h + pitagoras x (y-1) h
+    | y == 0 && x > 0 = pitagorasCadaY x y h + pitagoras (x-1) y h
+    | x == 0 && y == 0 = 0
+
+
+pitagorasCadaX :: Integer -> Integer -> Integer -> Integer
+pitagorasCadaX x y h
+    | x >= 0 && x^2 + y^2 <= h^2 = 1 + pitagorasCadaX (x-1) y h
+    | x >= 0 && x^2 + y^2 > h^2 = pitagorasCadaX (x-1) y h
+    | x < 0 = 0
+
+pitagorasCadaY :: Integer -> Integer -> Integer -> Integer
+pitagorasCadaY x y h
+    | y >= 0 && x^2 + y^2 <= h^2 = 1 + pitagorasCadaY x (y-1) h
+    | y >= 0 && x^2 + y^2 > h^2 = pitagorasCadaY x (y-1) h
+    | y < 0 = 0
