@@ -103,3 +103,13 @@ problema sumaPotencias (q, n, m : N) : N {
     asegura : { La suma de todos los posibles q^(a+b) para todo 1 =< a <= n y 1 =< b <= m }
 
 }
+
+Ejercicio 21
+
+problema pitagoras (n, m, h : N) : N {
+
+    requiere : { n, m, h > 0 }
+
+    asegura : { La cantidad de pares x^2 + y^2 = h^2 para todo 1 <= x <= n y 1 <= y <= m }
+
+}
