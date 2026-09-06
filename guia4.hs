@@ -176,7 +176,17 @@ esPrimo n = menorDivisor n == n
 -- c
 
 sonCoprimos :: Integer -> Integer -> Bool
-sonCoprimos n m = not (esDivisible n (menorDivisor m) || esDivisible m (menorDivisor n)) --revisar
+sonCoprimos n m = mcd n m (menor n m) == 1
+
+mcd :: Integer -> Integer -> Integer -> Integer
+mcd n m c
+    | mod n c == 0 && mod m c == 0 = c
+    | otherwise = mcd n m (c-1)
+
+menor ::  Integer -> Integer -> Integer
+menor n m
+    | n < m = n
+    | m < n = m
 
 -- d
 
@@ -228,7 +238,6 @@ sumaDePrimos n suma cantP
     | otherwise = sumaDePrimos n (suma + nEsimoPrimo (cantP + 1)) (cantP + 1)
 
 -- 21
-
 
 pitagoras :: Integer -> Integer -> Integer -> Integer
 pitagoras x y h
