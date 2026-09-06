@@ -1,4 +1,3 @@
-import GHC.IO.Encoding.Failure (CodingFailureMode(TransliterateCodingFailure))
 -- 1
 
 fibonacci :: Integer -> Integer
