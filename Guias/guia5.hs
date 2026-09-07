@@ -171,3 +171,22 @@ ordenar x
     | longitud x > 1 = ordenar (quitar (maximo x) x) ++ [(maximo x)]
 
 -- 4
+
+sacarBlancosRepetidos :: [Char] -> [Char]
+sacarBlancosRepetidos [] = []
+sacarBlancosRepetidos [x] = [x]
+sacarBlancosRepetidos (x:xs)
+    | x == ' ' && x == head xs = sacarBlancosRepetidos xs
+    | x == ' ' && not (x == head xs) = x : (sacarBlancosRepetidos xs)
+    | not (x == ' ') = x : sacarBlancosRepetidos xs
+    | otherwise = xs
+
+-- b
+
+contarPalabras :: [Char] -> Integer 
+contarPalabras [] = 0
+contarPalabras (x:xs)
+    | x' == ' ' && longitud xs > 1 = 1 + contarPalabras x's
+    | x' /= ' ' && longitud xs == 0 = 1
+    | otherwise = contarPalabras x's
+    where (x':x's) = sacarBlancosRepetidos (x:xs)
