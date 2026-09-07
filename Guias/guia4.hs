@@ -237,6 +237,24 @@ sumaDePrimos n suma cantP
     | n < suma = False
     | otherwise = sumaDePrimos n (suma + nEsimoPrimo (cantP + 1)) (cantP + 1)
 
+-- 20
+
+tomaValorMax :: Integer -> Integer -> Integer
+tomaValorMax n1 n2
+    | n1 < n2 && sumaDivisores n1 < sumaDivisores n2 = tomaValorMax (n1+1) n2
+    | n1 < n2 && sumaDivisores n1 > sumaDivisores n2 = tomaValorMax n1 (n2-1)
+    | n1 == n2 = n1
+
+
+sumaDivisores :: Integer -> Integer
+sumaDivisores n = sumaDeDivisores n n
+
+sumaDeDivisores :: Integer -> Integer -> Integer
+sumaDeDivisores n m
+    | m > 0 && esDivisible n m = m + sumaDeDivisores n (m-1)
+    | m > 0 && not (esDivisible n m) = sumaDeDivisores n (m-1)
+    | m == 0 = 0
+
 -- 21
 
 pitagoras :: Integer -> Integer -> Integer -> Integer

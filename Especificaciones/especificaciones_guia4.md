@@ -104,6 +104,17 @@ problema sumaPotencias (q, n, m : N) : N {
 
 }
 
+Ejercicio 20
+
+problema tomaValorMax (n1, n2: N) : N {
+
+    requiere : { n1 > 0, n2 >= n1 }
+
+    asegura : { Dado i n1 <= i <= n2, devuelve el i cuya suma de sus divisores devuelva el número mas grande }
+
+}
+
+
 Ejercicio 21
 
 problema pitagoras (n, m, h : N) : N {
