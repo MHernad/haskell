@@ -1,5 +1,3 @@
-{- HLINT ignore "Eta reduce" -}
-
 -- Ej 1
 -- a
 f :: Integer -> Integer

@@ -62,8 +62,42 @@ hayRepetidos x = not (todosDistintos x)
 
 quitar :: (Eq t) => t -> [t] -> [t]
 quitar _ [] = []
-quitar n (x:y:xs)
-    | longitud (x::xs) == 1 && x == n = []
-    | longitud (x:xs) > 1 && not (pertenece n (x:xs)) = x:xs
-    | longitud (x:xs) > 1 && x == n = xs
-    | otherwise = quitar n xs
+quitar n (x:xs)
+    | n == x = xs
+    | n /= x = x : quitar n xs
+
+-- f
+
+quitarTodos :: (Eq t) => t -> [t] -> [t]
+quitarTodos _ [] = []
+quitarTodos n (x:xs)
+    | n == x = quitarTodos n xs
+    | n /= x = x : quitarTodos n xs
+
+-- g
+
+eliminarRepetidos :: (Eq t) => [t] -> [t]
+eliminarRepetidos [] = []
+eliminarRepetidos (x:xs)
+    | longitud xs > 0 && pertenece x xs = x : eliminarRepetidos (quitarTodos x xs)
+    | longitud xs > 0 && not (pertenece x xs) = x : eliminarRepetidos xs
+    | otherwise = x:xs
+
+-- h
+
+mismosElementos :: (Eq t) => [t] -> [t] -> Bool
+mismosElementos [] [] = True
+mismosElementos [_] [] = False
+mismosElementos [] [_] = False
+mismosElementos (x:xs) (y:ys)
+    | x `pertenece` (y:ys) && y `pertenece` (x:xs) = mismosElementos (eliminarRepetidos(quitar y xs)) (eliminarRepetidos(quitar x ys))
+    | otherwise = False
+
+-- i
+
+capicua :: (Eq t) => [t] -> Bool
+capicua [] = True
+capicua [x] = True
+capicua (x:xs)
+    | x == ultimo xs = capicua (principio xs)
+    | otherwise = False
