@@ -1,4 +1,4 @@
---1
+-- 1
 
 -- a
 
@@ -101,3 +101,73 @@ capicua [x] = True
 capicua (x:xs)
     | x == ultimo xs = capicua (principio xs)
     | otherwise = False
+
+-- 3
+
+-- a
+
+sumatoria :: [Integer] -> Integer
+sumatoria [] = 0
+sumatoria [x] = x
+sumatoria (x:xs)
+    | longitud xs > 0 = x + sumatoria xs
+
+-- b
+
+productoria :: [Integer] -> Integer
+productoria [] = 1
+productoria [x] = x
+productoria (x:xs)
+    | longitud xs > 0 = x * productoria xs
+
+-- c
+
+maximo :: [Integer] -> Integer
+maximo [] = 0
+maximo [x] = x
+maximo (x:xs)
+    | x >= ultimo xs = maximo (x : (principio xs))
+    | x < ultimo xs = maximo xs
+
+-- d
+
+sumarN :: Integer -> [Integer] -> [Integer]
+sumarN n [] = []
+sumarN n (x:xs) = x+n : sumarN n xs
+
+-- e
+
+sumarPrimero :: [Integer] -> [Integer]
+sumarPrimero (x:xs) = sumarN x (x:xs)
+
+-- f
+
+sumarUltimo :: [Integer] -> [Integer]
+sumarUltimo (x:xs) = sumarN (ultimo xs) (x:xs)
+
+-- g
+
+pares :: [Integer] -> [Integer]
+pares [] = []
+pares (x:xs)
+    | mod x 2 == 0 = x : pares xs
+    | otherwise = pares xs
+
+-- h
+
+multiplosDeN :: Integer -> [Integer] -> [Integer]
+multiplosDeN _ [] = []
+multiplosDeN 0 [_] = []
+multiplosDeN n (x:xs)
+    | mod x n == 0 = x : multiplosDeN n xs
+    | otherwise = multiplosDeN n xs
+
+-- i
+
+ordenar :: [Integer] -> [Integer]
+ordenar [] = []
+ordenar [x] = [x]
+ordenar x
+    | longitud x > 1 = ordenar (quitar (maximo x) x) ++ [(maximo x)]
+
+-- 4
