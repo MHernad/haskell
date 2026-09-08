@@ -172,16 +172,26 @@ ordenar x
 
 -- 4
 
+espaciosInnecesarios :: [Char] -> [Char]
+espaciosInnecesarios [] = []
+espaciosInnecesarios (x:xs)
+    | x == ' ' && ultimo xs == ' ' = principio xs
+    | x == ' ' = xs
+    | ultimo xs == ' ' = x : principio xs
+    | otherwise = x:xs
+
 sacarBlancosRepetidos :: [Char] -> [Char]
 sacarBlancosRepetidos [] = []
 sacarBlancosRepetidos [x] = [x]
 sacarBlancosRepetidos (x:xs)
     | x == ' ' && x == head xs = sacarBlancosRepetidos xs
-    | x == ' ' && not (x == head xs) = x : (sacarBlancosRepetidos xs)
+    | x == ' ' && not (x == head xs) = x : (sacarBlancosRepetidos  xs)
     | not (x == ' ') = x : sacarBlancosRepetidos xs
     | otherwise = xs
 
 -- b
+
+-- The quick brown fox jumps over the lazy dog
 
 contarPalabras :: [Char] -> Integer 
 contarPalabras [] = 0
@@ -189,4 +199,14 @@ contarPalabras (x:xs)
     | x' == ' ' && longitud xs > 1 = 1 + contarPalabras x's
     | x' /= ' ' && longitud xs == 0 = 1
     | otherwise = contarPalabras x's
-    where (x':x's) = sacarBlancosRepetidos (x:xs)
+    where (x':x's) = espaciosInnecesarios (sacarBlancosRepetidos (x:xs))
+
+-- c
+
+palabras :: [Char] -> [[Char]]
+palabras [] = []
+palabras (x:xs)
+    | head xs' == ' ' && longitud xs' > 0 = [[x']] ++ palabras xs'
+    | head xs' == ' ' && longitud xs' == 0 = [[x']]
+    | otherwise = [x'] : [xs']
+    where (x':xs') = espaciosInnecesarios (sacarBlancosRepetidos (x:xs))
