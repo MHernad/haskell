@@ -1,6 +1,7 @@
 -- 1
 
 -- a
+{- HLINT ignore "Use map" -}
 
 longitud :: [t] -> Integer
 longitud [] = 0
@@ -90,7 +91,7 @@ mismosElementos [] [] = True
 mismosElementos [_] [] = False
 mismosElementos [] [_] = False
 mismosElementos (x:xs) (y:ys)
-    | x `pertenece` (y:ys) && y `pertenece` (x:xs) = mismosElementos (eliminarRepetidos(quitar y xs)) (eliminarRepetidos(quitar x ys))
+    | x `pertenece` (y:ys) && y `pertenece` (x:xs) = mismosElementos (eliminarRepetidos (quitar y xs)) (eliminarRepetidos (quitar x ys))
     | otherwise = False
 
 -- i
@@ -126,7 +127,7 @@ maximo :: [Integer] -> Integer
 maximo [] = 0
 maximo [x] = x
 maximo (x:xs)
-    | x >= ultimo xs = maximo (x : (principio xs))
+    | x >= ultimo xs = maximo (x : principio xs)
     | x < ultimo xs = maximo xs
 
 -- d
@@ -150,7 +151,7 @@ sumarUltimo (x:xs) = sumarN (ultimo xs) (x:xs)
 pares :: [Integer] -> [Integer]
 pares [] = []
 pares (x:xs)
-    | mod x 2 == 0 = x : pares xs
+    | even x = x : pares xs
     | otherwise = pares xs
 
 -- h
@@ -168,7 +169,7 @@ ordenar :: [Integer] -> [Integer]
 ordenar [] = []
 ordenar [x] = [x]
 ordenar x
-    | longitud x > 1 = ordenar (quitar (maximo x) x) ++ [(maximo x)]
+    | longitud x > 1 = ordenar (quitar (maximo x) x) ++ [maximo x]
 
 -- 4
 
@@ -185,15 +186,15 @@ sacarBlancosRepetidos [] = []
 sacarBlancosRepetidos [x] = [x]
 sacarBlancosRepetidos (x:xs)
     | x == ' ' && x == head xs = sacarBlancosRepetidos xs
-    | x == ' ' && not (x == head xs) = x : (sacarBlancosRepetidos  xs)
-    | not (x == ' ') = x : sacarBlancosRepetidos xs
+    | x == ' ' && (x /= head xs) = x : sacarBlancosRepetidos  xs
+    | x /= ' ' = x : sacarBlancosRepetidos xs
     | otherwise = xs
 
 -- b
 
 -- The quick brown fox jumps over the lazy dog
 
-contarPalabras :: [Char] -> Integer 
+contarPalabras :: [Char] -> Integer
 contarPalabras [] = 0
 contarPalabras (x:xs)
     | x' == ' ' && longitud xs > 1 = 1 + contarPalabras x's
@@ -206,7 +207,7 @@ contarPalabras (x:xs)
 palabras :: [Char] -> [[Char]]
 palabras [] = []
 palabras (x:xs)
-    | head xs' == ' ' && longitud xs' > 0 = [[x']] ++ palabras xs'
+    | head xs' == ' ' && longitud xs' > 0 = [x'] : palabras xs'
     | head xs' == ' ' && longitud xs' == 0 = [[x']]
     | otherwise = [x'] : [xs']
     where (x':xs') = espaciosInnecesarios (sacarBlancosRepetidos (x:xs))

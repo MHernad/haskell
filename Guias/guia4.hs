@@ -245,7 +245,6 @@ tomaValorMax n1 n2
     | n1 < n2 && sumaDivisores n1 > sumaDivisores n2 = tomaValorMax n1 (n2-1)
     | n1 == n2 = n1
 
-
 sumaDivisores :: Integer -> Integer
 sumaDivisores n = sumaDeDivisores n n
 
