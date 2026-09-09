@@ -223,3 +223,14 @@ quitarPalabra (x:xs)
     | x /= ' ' = quitarPalabra xs
     | x == ' ' && longitud xs > 0 && head xs == ' ' = quitarPalabra xs
     | otherwise = xs
+
+-- d
+
+palabraMasLarga :: [Char] -> [Char]
+palabraMasLarga = palabraMasLargaAux . palabras
+
+palabraMasLargaAux :: [[Char]] -> [Char]
+palabraMasLargaAux [] = []
+palabraMasLargaAux (x:xs)
+    | longitud x < longitud (palabraMasLargaAux xs) = palabraMasLargaAux xs
+    | otherwise = x
