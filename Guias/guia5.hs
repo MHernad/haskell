@@ -176,9 +176,9 @@ ordenar x
 espaciosInnecesarios :: [Char] -> [Char]
 espaciosInnecesarios [] = []
 espaciosInnecesarios (x:xs)
-    | x == ' ' && ultimo xs == ' ' = principio xs
+    | x == ' ' && longitud xs > 0 && ultimo xs == ' ' = principio xs
     | x == ' ' = xs
-    | ultimo xs == ' ' = x : principio xs
+    | longitud xs > 0 && ultimo xs == ' ' = x : principio xs
     | otherwise = x:xs
 
 sacarBlancosRepetidos :: [Char] -> [Char]
@@ -207,7 +207,19 @@ contarPalabras (x:xs)
 palabras :: [Char] -> [[Char]]
 palabras [] = []
 palabras (x:xs)
-    | head xs' == ' ' && longitud xs' > 0 = [x'] : palabras xs'
-    | head xs' == ' ' && longitud xs' == 0 = [[x']]
-    | otherwise = [x'] : [xs']
+    | longitud xs' > 0 = palabra (x':xs') : palabras (quitarPalabra xs')
+    | otherwise = [[x']]
     where (x':xs') = espaciosInnecesarios (sacarBlancosRepetidos (x:xs))
+
+palabra :: [Char] -> [Char]
+palabra [] = []
+palabra (x:xs)
+    | longitud xs > 0 && head xs == ' ' = x:[]
+    | otherwise = x : palabra xs
+
+quitarPalabra :: [Char] -> [Char]
+quitarPalabra [] = []
+quitarPalabra (x:xs)
+    | x /= ' ' = quitarPalabra xs
+    | x == ' ' && longitud xs > 0 && head xs == ' ' = quitarPalabra xs
+    | otherwise = xs
