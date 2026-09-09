@@ -262,3 +262,42 @@ aplanarConNBlancos (x:xs) n
 nBlancos :: Integer -> [Char]
 nBlancos 0 = []
 nBlancos x = ' ' : nBlancos (x-1)
+
+-- Ejercicio 5
+
+-- a
+
+sumaAcumulada :: (Num t) => [t] -> [t]
+sumaAcumulada x = otraSumaAcumulada x 0
+
+otraSumaAcumulada :: (Num t) => [t] -> t -> [t]
+otraSumaAcumulada [] _ = []
+otraSumaAcumulada (x:xs) n = (x+n) : otraSumaAcumulada xs (x+n)
+
+-- b
+
+esDivisible :: Integer -> Integer -> Bool
+esDivisible x 1 = True
+esDivisible 1 y = False
+esDivisible x y
+    | x > y = esDivisible (x-y) y
+    | x < y && x /= 0 = False
+    | otherwise = True
+
+menorDivisor :: Integer -> Integer
+menorDivisor n = buscaDivisor n 2
+
+buscaDivisor :: Integer -> Integer -> Integer
+buscaDivisor n m
+    | esDivisible n m = m
+    | otherwise = buscaDivisor n (m+1)
+
+descomponerEnPrimos :: [Integer] -> [[Integer]]
+descomponerEnPrimos [] = []
+descomponerEnPrimos (x:xs) = composicionDePrimos x : descomponerEnPrimos xs
+
+composicionDePrimos :: Integer -> [Integer]
+composicionDePrimos 1 = [1]
+composicionDePrimos n
+    | n /= menorDivisor n = menorDivisor n : composicionDePrimos (div n (menorDivisor n))
+    | n == menorDivisor n = [n]
