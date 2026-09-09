@@ -234,3 +234,31 @@ palabraMasLargaAux [] = []
 palabraMasLargaAux (x:xs)
     | longitud x < longitud (palabraMasLargaAux xs) = palabraMasLargaAux xs
     | otherwise = x
+
+-- e
+
+aplanar :: [[Char]] -> [Char]
+aplanar [] = []
+aplanar (x:xs)
+    | longitud xs > 0 = palabra x ++ aplanar xs
+    | otherwise = x
+
+-- f
+
+aplanarConBlancos :: [[Char]] -> [Char]
+aplanarConBlancos [] = []
+aplanarConBlancos (x:xs)
+    | longitud xs > 0 = palabra x ++ [' '] ++ aplanarConBlancos xs 
+    | otherwise = x
+
+-- g
+
+aplanarConNBlancos :: [[Char]] -> Integer -> [Char]
+aplanarConNBlancos []  _ = []
+aplanarConNBlancos (x:xs) n
+    | longitud xs > 0 = palabra x ++ nBlancos n ++ aplanarConNBlancos xs n 
+    | otherwise = x
+
+nBlancos :: Integer -> [Char]
+nBlancos 0 = []
+nBlancos x = ' ' : nBlancos (x-1)
