@@ -175,9 +175,9 @@ ordenar x
 espaciosInnecesarios :: [Char] -> [Char]
 espaciosInnecesarios [] = []
 espaciosInnecesarios (x:xs)
-    | x == ' ' && ultimo xs == ' ' = principio xs
+    | x == ' ' && longitud xs > 0 && ultimo xs == ' ' = principio xs
     | x == ' ' = xs
-    | ultimo xs == ' ' = x : principio xs
+    | longitud xs > 0 && ultimo xs == ' ' = x : principio xs
     | otherwise = x:xs
 
 sacarBlancosRepetidos :: [Char] -> [Char]
@@ -206,6 +206,137 @@ contarPalabras (x:xs)
 palabras :: [Char] -> [[Char]]
 palabras [] = []
 palabras (x:xs)
-    | longitud xs' > 1 = [x']:[head xs'] : palabras xs'
-    | longitud xs' == 1 = [[x']]
+    | longitud xs' > 0 = palabra (x':xs') : palabras (quitarPalabra xs')
+    | otherwise = [[x']]
     where (x':xs') = espaciosInnecesarios (sacarBlancosRepetidos (x:xs))
+
+palabra :: [Char] -> [Char]
+palabra [] = []
+palabra (x:xs)
+    | longitud xs > 0 && head xs == ' ' = x:[]
+    | otherwise = x : palabra xs
+
+quitarPalabra :: [Char] -> [Char]
+quitarPalabra [] = []
+quitarPalabra (x:xs)
+    | x /= ' ' = quitarPalabra xs
+    | x == ' ' && longitud xs > 0 && head xs == ' ' = quitarPalabra xs
+    | otherwise = xs
+
+-- d
+
+palabraMasLarga :: [Char] -> [Char]
+palabraMasLarga = palabraMasLargaAux . palabras
+
+palabraMasLargaAux :: [[Char]] -> [Char]
+palabraMasLargaAux [] = []
+palabraMasLargaAux (x:xs)
+    | longitud x < longitud (palabraMasLargaAux xs) = palabraMasLargaAux xs
+    | otherwise = x
+
+-- e
+
+aplanar :: [[Char]] -> [Char]
+aplanar [] = []
+aplanar (x:xs)
+    | longitud xs > 0 = palabra x ++ aplanar xs
+    | otherwise = x
+
+-- f
+
+aplanarConBlancos :: [[Char]] -> [Char]
+aplanarConBlancos [] = []
+aplanarConBlancos (x:xs)
+    | longitud xs > 0 = palabra x ++ [' '] ++ aplanarConBlancos xs 
+    | otherwise = x
+
+-- g
+
+aplanarConNBlancos :: [[Char]] -> Integer -> [Char]
+aplanarConNBlancos []  _ = []
+aplanarConNBlancos (x:xs) n
+    | longitud xs > 0 = palabra x ++ nBlancos n ++ aplanarConNBlancos xs n 
+    | otherwise = x
+
+nBlancos :: Integer -> [Char]
+nBlancos 0 = []
+nBlancos x = ' ' : nBlancos (x-1)
+
+-- Ejercicio 5
+
+-- a
+
+sumaAcumulada :: (Num t) => [t] -> [t]
+sumaAcumulada x = otraSumaAcumulada x 0
+
+otraSumaAcumulada :: (Num t) => [t] -> t -> [t]
+otraSumaAcumulada [] _ = []
+otraSumaAcumulada (x:xs) n = (x+n) : otraSumaAcumulada xs (x+n)
+
+-- b
+
+esDivisible :: Integer -> Integer -> Bool
+esDivisible x 1 = True
+esDivisible 1 y = False
+esDivisible x y
+    | x > y = esDivisible (x-y) y
+    | x < y && x /= 0 = False
+    | otherwise = True
+
+menorDivisor :: Integer -> Integer
+menorDivisor n = buscaDivisor n 2
+
+buscaDivisor :: Integer -> Integer -> Integer
+buscaDivisor n m
+    | esDivisible n m = m
+    | otherwise = buscaDivisor n (m+1)
+
+descomponerEnPrimos :: [Integer] -> [[Integer]]
+descomponerEnPrimos [] = []
+descomponerEnPrimos (x:xs) = composicionDePrimos x : descomponerEnPrimos xs
+
+composicionDePrimos :: Integer -> [Integer]
+composicionDePrimos 1 = [1]
+composicionDePrimos n
+    | n /= menorDivisor n = menorDivisor n : composicionDePrimos (div n (menorDivisor n))
+    | n == menorDivisor n = [n]
+
+-- 6
+
+type Texto = [Char]
+type Nombre = Texto
+type Telefono = Texto
+type Contacto = (Nombre, Telefono)
+type ContactosTel = [Contacto]
+
+-- a
+
+enLosContactos :: Nombre -> ContactosTel -> Bool
+enLosContactos _ [] = False
+enLosContactos n (x:xs)
+    | n == fst x = True
+    | otherwise = enLosContactos n xs
+
+-- b
+
+agregarContacto :: Contacto -> ContactosTel -> ContactosTel
+agregarContacto (n,t) [] = [(n,t)]
+agregarContacto (n,t) (x:xs)
+    | n == fst x && t /= snd x = (n,t) : xs
+    | otherwise = (x:xs) ++ [(n,t)]
+
+-- c
+
+eliminarContacto :: Nombre -> ContactosTel -> ContactosTel
+eliminarContacto n (x:xs)
+    | n == fst x = xs
+    | n /= fst x = x : eliminarContacto n xs
+
+-- Ejercicio 7
+
+type Identificacion = Integer
+type Ubicacion = Texto
+type Estado = (Disponibilidad, Ubicacion)
+type Locker = (Identificacion, Estado)
+type MapaDeLockers = [Locker]
+type Disponibilidad = Bool
