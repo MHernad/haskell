@@ -133,8 +133,7 @@ maximo (x:xs)
 -- d
 
 sumarN :: Integer -> [Integer] -> [Integer]
-sumarN n [] = []
-sumarN n (x:xs) = x+n : sumarN n xs
+sumarN n (x:xs) = map (+n) (x:xs)
 
 -- e
 
@@ -207,7 +206,6 @@ contarPalabras (x:xs)
 palabras :: [Char] -> [[Char]]
 palabras [] = []
 palabras (x:xs)
-    | head xs' == ' ' && longitud xs' > 0 = [x'] : palabras xs'
-    | head xs' == ' ' && longitud xs' == 0 = [[x']]
-    | otherwise = [x'] : [xs']
+    | longitud xs' > 1 = [x']:[head xs'] : palabras xs'
+    | longitud xs' == 1 = [[x']]
     where (x':xs') = espaciosInnecesarios (sacarBlancosRepetidos (x:xs))
