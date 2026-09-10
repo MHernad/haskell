@@ -332,3 +332,12 @@ eliminarContacto :: Nombre -> ContactosTel -> ContactosTel
 eliminarContacto n (x:xs)
     | n == fst x = xs
     | n /= fst x = x : eliminarContacto n xs
+
+-- Ejercicio 7
+
+type Identificacion = Integer
+type Ubicacion = Texto
+type Estado = (Disponibilidad, Ubicacion)
+type Locker = (Identificacion, Estado)
+type MapaDeLockers = [Locker]
+type Disponibilidad = Bool
