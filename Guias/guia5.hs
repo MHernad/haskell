@@ -301,3 +301,34 @@ composicionDePrimos 1 = [1]
 composicionDePrimos n
     | n /= menorDivisor n = menorDivisor n : composicionDePrimos (div n (menorDivisor n))
     | n == menorDivisor n = [n]
+
+-- 6
+
+type Texto = [Char]
+type Nombre = Texto
+type Telefono = Texto
+type Contacto = (Nombre, Telefono)
+type ContactosTel = [Contacto]
+
+-- a
+
+enLosContactos :: Nombre -> ContactosTel -> Bool
+enLosContactos _ [] = False
+enLosContactos n (x:xs)
+    | n == fst x = True
+    | otherwise = enLosContactos n xs
+
+-- b
+
+agregarContacto :: Contacto -> ContactosTel -> ContactosTel
+agregarContacto (n,t) [] = [(n,t)]
+agregarContacto (n,t) (x:xs)
+    | n == fst x && t /= snd x = (n,t) : xs
+    | otherwise = (x:xs) ++ [(n,t)]
+
+-- c
+
+eliminarContacto :: Nombre -> ContactosTel -> ContactosTel
+eliminarContacto n (x:xs)
+    | n == fst x = xs
+    | n /= fst x = x : eliminarContacto n xs
