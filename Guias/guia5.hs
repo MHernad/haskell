@@ -2,6 +2,7 @@
 
 -- a
 {- HLINT ignore "Use map" -}
+{- HLINT ignore "Use foldr" -}
 
 longitud :: [t] -> Integer
 longitud [] = 0
@@ -373,3 +374,21 @@ ocuparLocker _ [] = []
 ocuparLocker id (l:ls)
     | id == fst l && estaDisponibleLocker id (l:ls) = (fst l, (False, snd (snd l))) : ls
     | otherwise = l : ocuparLocker id ls
+
+-- Ejercicio 8
+
+identidad = [[1,0,0],[0,1,0],[0,0,1]]
+
+-- a
+
+sumaTotal :: [[Integer]] -> Integer
+sumaTotal (l:ls)
+    | not (null ls) = sumaTotal' l + sumaTotal ls
+    | otherwise = sumaTotal' l
+
+sumaTotal' :: [Integer] -> Integer
+sumaTotal' [] = 0
+sumaTotal' (l:ls) = l + sumaTotal' ls
+
+-- b
+

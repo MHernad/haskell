@@ -115,7 +115,7 @@ eAproxAux :: Integer -> Float
 eAproxAux 0 = 1
 eAproxAux n = fromIntegral n * eAproxAux (n-1)
 
-const e = eAprox 10
+e = eAprox 10
 
 -- 12
 
