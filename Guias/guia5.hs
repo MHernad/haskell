@@ -248,7 +248,7 @@ aplanar (x:xs)
 aplanarConBlancos :: [[Char]] -> [Char]
 aplanarConBlancos [] = []
 aplanarConBlancos (x:xs)
-    | longitud xs > 0 = palabra x ++ [' '] ++ aplanarConBlancos xs 
+    | longitud xs > 0 = palabra x ++ [' '] ++ aplanarConBlancos xs
     | otherwise = x
 
 -- g
@@ -256,7 +256,7 @@ aplanarConBlancos (x:xs)
 aplanarConNBlancos :: [[Char]] -> Integer -> [Char]
 aplanarConNBlancos []  _ = []
 aplanarConNBlancos (x:xs) n
-    | longitud xs > 0 = palabra x ++ nBlancos n ++ aplanarConNBlancos xs n 
+    | longitud xs > 0 = palabra x ++ nBlancos n ++ aplanarConNBlancos xs n
     | otherwise = x
 
 nBlancos :: Integer -> [Char]
@@ -382,13 +382,77 @@ identidad = [[1,0,0],[0,1,0],[0,0,1]]
 -- a
 
 sumaTotal :: [[Integer]] -> Integer
-sumaTotal (l:ls)
-    | not (null ls) = sumaTotal' l + sumaTotal ls
-    | otherwise = sumaTotal' l
+sumaTotal (x:xs)
+    | not (null xs) = sumaTotal' x + sumaTotal xs
+    | otherwise = sumaTotal' x
 
 sumaTotal' :: [Integer] -> Integer
 sumaTotal' [] = 0
-sumaTotal' (l:ls) = l + sumaTotal' ls
+sumaTotal' (x:xs) = x + sumaTotal' xs
 
 -- b
 
+cantidadDeApariciones :: Integer -> [[Integer]] -> Integer
+cantidadDeApariciones n (x:xs)
+    | not (null xs) = aparicionesAux n x + cantidadDeApariciones n xs
+    | otherwise = aparicionesAux n x
+
+-- c
+
+contarPalabrasEnMatriz :: String -> [[String]] -> Integer
+contarPalabrasEnMatriz n (x:xs)
+    | not (null xs) = aparicionesAux n x + contarPalabrasEnMatriz n xs
+    | otherwise = aparicionesAux n x
+
+-- d
+
+aparicionesAux :: (Eq t) => t -> [t] -> Integer
+aparicionesAux _ [] = 0
+aparicionesAux n (x:xs)
+    | n == x = 1 + aparicionesAux n xs
+    | otherwise = aparicionesAux n xs
+
+-- e
+
+productoEscalar :: Integer -> [[Integer]] -> [[Integer]]
+productoEscalar _ [] = []
+productoEscalar n (x:xs) = prodEscalarAux n x : productoEscalar n xs
+
+prodEscalarAux :: Integer -> [Integer] -> [Integer]
+prodEscalarAux _ [] = []
+prodEscalarAux n (x:xs)
+    | longitud xs > 0 = x*n : prodEscalarAux n xs
+    | otherwise = [x*n]
+
+-- f
+
+concatenarFilas :: [[String]] -> [String]
+concatenarFilas [] = []
+concatenarFilas (x:xs) = concatAux x : concatenarFilas xs
+
+concatAux :: [String] -> String
+concatAux [] = ""
+concatAux (x:xs) = x ++ concatAux xs
+
+-- g
+
+iesimaFila :: Integer -> [[a]] -> [a]
+iesimaFila _ [] = []
+iesimaFila 0 [_] = []
+iesimaFila n (x:xs)
+    | n == 1 = x
+    | n /=1 = iesimaFila (n-1) xs
+
+-- h
+
+iesimaColumna :: Integer -> [[a]] -> [a]
+iesimaColumna _ [] = []
+iesimaColumna 0 [_] = []
+iesimaColumna n (x:xs) = iesimoDigito n x : iesimaColumna n xs
+
+iesimoDigito :: Integer -> [t] -> t
+iesimoDigito n (x:xs)
+    | n == 1 = x
+    | otherwise = iesimoDigito (n-1) xs
+
+-- i
