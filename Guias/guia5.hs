@@ -213,7 +213,7 @@ palabras (x:xs)
 palabra :: [Char] -> [Char]
 palabra [] = []
 palabra (x:xs)
-    | longitud xs > 0 && head xs == ' ' = x:[]
+    | longitud xs > 0 && head xs == ' ' = [x]
     | otherwise = x : palabra xs
 
 quitarPalabra :: [Char] -> [Char]
@@ -340,3 +340,36 @@ type Estado = (Disponibilidad, Ubicacion)
 type Locker = (Identificacion, Estado)
 type MapaDeLockers = [Locker]
 type Disponibilidad = Bool
+
+-- a
+
+existeElLocker :: Identificacion -> MapaDeLockers -> Bool
+existeElLocker _ [] = False
+existeElLocker id (l:ls)
+    | id == fst l = True
+    | otherwise = existeElLocker id ls
+
+-- b
+
+ubicacionDelLocker :: Identificacion -> MapaDeLockers -> Ubicacion
+ubicacionDelLocker _ [] = "No existe el locker"
+ubicacionDelLocker id (l:ls)
+    | id == fst l = snd (snd l)
+    | otherwise = ubicacionDelLocker id ls
+
+-- c
+
+estaDisponibleLocker :: Identificacion -> MapaDeLockers -> Bool
+estaDisponibleLocker _ [] = False
+estaDisponibleLocker id (l:ls)
+    | not (existeElLocker id (l:ls)) = False
+    | id == fst l = fst (snd l)
+    | otherwise = estaDisponibleLocker id ls
+
+-- d
+
+ocuparLocker :: Identificacion -> MapaDeLockers -> MapaDeLockers
+ocuparLocker _ [] = []
+ocuparLocker id (l:ls)
+    | id == fst l && estaDisponibleLocker id (l:ls) = (fst l, (False, snd (snd l))) : ls
+    | otherwise = l : ocuparLocker id ls
