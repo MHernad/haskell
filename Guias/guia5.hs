@@ -1,8 +1,7 @@
+import Data.Text.Unsafe (iter)
 -- 1
 
 -- a
-{- HLINT ignore "Use map" -}
-{- HLINT ignore "Use foldr" -}
 
 longitud :: [t] -> Integer
 longitud [] = 0
@@ -456,3 +455,30 @@ iesimoDigito n (x:xs)
     | otherwise = iesimoDigito (n-1) xs
 
 -- i
+
+filaIdentidad :: Integer -> Integer -> Integer -> [Integer]
+filaIdentidad pos i size
+    | pos == i && i == size = [1]
+    | pos == i = 1 : next
+    | i /= size = 0 : next
+    | otherwise = [0]
+    where next = filaIdentidad pos (i+1) size
+
+identidadAux :: Integer -> Integer -> [[Integer]]
+identidadAux n i
+    | i < n = filaIdentidad i 1 n : identidadAux n (i+1)
+    | i == n = [filaIdentidad i 1 n]
+
+matrizIdentidad :: Integer -> [[Integer]]
+matrizIdentidad 1 = [[1]]
+matrizIdentidad n = identidadAux n 1
+
+-- j
+
+cantidadParesColumna :: Integer -> [[Integer]] -> Integer
+cantidadParesColumna n (x:xs)
+    | even l && longitud ls > 0 = 1 + cantidadParesColumna n xs
+    | odd l && longitud ls > 0 = cantidadParesColumna n xs
+    | even l = 1
+    | odd l = 0
+    where (l:ls) = iesimaColumna n (x:xs)
