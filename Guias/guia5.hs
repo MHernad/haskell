@@ -1,3 +1,5 @@
+{- HLINT ignore "Use foldr" -}
+{- HLINT ignore "Use map" -}
 import Data.Text.Unsafe (iter)
 -- 1
 
